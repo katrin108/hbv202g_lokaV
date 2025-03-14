@@ -37,15 +37,26 @@ public class LibrarySystem {
         users.add(new FacultyMember(name, department));
     }
 
-    public Book findBookByTitle(String title) throws UserOrBookDoesNotExistException {
-        return books.stream().filter(book -> book.getTitle().equals(title)).findFirst().orElseThrow(()-> new UserOrBookDoesNotExistException("Book " +title+" not found"));
+    public Book findBookByTitle(String title) {
+        return books.stream().filter(book -> book.getTitle().equals(title)).findFirst().orElse(null);
     }
 
-    public User findUserByName(String name) throws UserOrBookDoesNotExistException{
-        return users.stream().filter(user -> user.getName().equals(name)).findFirst().orElseThrow(()-> new UserOrBookDoesNotExistException("User " +name+" not found"));
+    public User findUserByName(String name) {
+
+        return users.stream().filter(user -> user.getName().equals(name)).findFirst().orElse(null);
     }
 
-    public void borrowBook(User user, Book book) {
+    public void borrowBook(User user, Book book) throws UserOrBookDoesNotExistException{
+        if (findBookByTitle(book.getTitle()) == null || findUserByName(user.getName()) == null) {
+            throw new UserOrBookDoesNotExistException("User or book does not exist");
+        }
+        else {
+            for (Lending lending : lendings) {
+                if (lending.getBook().equals(book) && lending.getUser().equals(user)) {
+                    throw new UserOrBookDoesNotExistException("User already has this book");
+                }
+            }
+        }
         lendings.add(new Lending(book, user));
     }
    public void extendLending(FacultyMember facultyMember, Book book, LocalDate newDueDate) {
