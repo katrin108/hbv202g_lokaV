@@ -1,5 +1,6 @@
 package is.hi.hbv202g.assignment8;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Book {
@@ -8,25 +9,27 @@ public class Book {
     private List<Author> authors;
 
     public Book(String title, String authorName) {
-        setTitle(title);
-        setAuthors(List.of(new Author(authorName)));
+        this.title=title;
+        this.authors=new ArrayList<>();
+        this.authors.add(new Author(authorName));
+
     }
 
-    public Book(String title, List<Author> authors) {
-        setTitle(title);
-        setAuthors(authors);
+    public Book(String title, List<Author> authors) throws EmptyAuthorListException  {
+        if (authors.isEmpty()) throw new EmptyAuthorListException("the book has no authors");
+        this.title=title;
+        this.authors=new ArrayList<>(authors);
     }
 
     public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Author> authors) {
-
-                this.authors = authors;
-
-
-
+    public void setAuthors(List<Author> authors) throws EmptyAuthorListException  {
+        if (authors.isEmpty()) {
+            throw new EmptyAuthorListException("the book has no authors");
+        }
+        this.authors = new ArrayList<>(authors);
     }
 
     public void addAuthor(Author author) {
