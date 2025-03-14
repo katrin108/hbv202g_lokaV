@@ -20,16 +20,17 @@ public class LibrarySystem {
 
     public void addBookWithTitleAndNameOfSingleAuthor(String title, String authorName) throws EmptyAuthorListException {
         if(authorName.isEmpty()|| authorName.trim().isEmpty()){
-            throw new EmptyAuthorListException("Author name cannot be empty for book: " + title);
+            throw new EmptyAuthorListException("Author name cannot be empty ");
         }
         books.add(new Book(title, authorName));
     }
     public void addBookWithTitleAndAuthorList(String title, List<Author> authors) throws EmptyAuthorListException {
-        if(authors==null|| authors.isEmpty()){
-            throw new EmptyAuthorListException("Author list cannot be empty for book: " + title);
+        if (authors == null || authors.isEmpty()) {
+            throw new EmptyAuthorListException("Author list is empty");
         }
         books.add(new Book(title, authors));
     }
+
     public void addStudentUser(String name, boolean feePaid) {
         users.add(new Student(name, feePaid));
     }
@@ -37,12 +38,16 @@ public class LibrarySystem {
         users.add(new FacultyMember(name, department));
     }
 
-    public Book findBookByTitle(String title) {
-        return books.stream().filter(book -> book.getTitle().equals(title)).findFirst().get();
+    public Book findBookByTitle(String title) throws UserOrBookDoesNotExistException {
+        return books.stream()
+                .filter(book -> book.getTitle().equals(title))
+                .findFirst()
+                .orElseThrow(() -> new UserOrBookDoesNotExistException("Book " + title + " not found"));
     }
 
-    public User findUserByName(String name) {
-        return users.stream().filter(user -> user.getName().equals(name)).findFirst().get();
+
+    public User findUserByName(String name) throws UserOrBookDoesNotExistException {
+        return users.stream().filter(user -> user.getName().equals(name)).findFirst().orElseThrow(() -> new UserOrBookDoesNotExistException("User " + name + " not found"));
     }
 
     public void borrowBook(User user, Book book) throws UserOrBookDoesNotExistException{
