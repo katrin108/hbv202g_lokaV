@@ -38,26 +38,20 @@ public class LibrarySystem {
     }
 
     public Book findBookByTitle(String title) {
-        return books.stream().filter(book -> book.getTitle().equals(title)).findFirst().orElse(null);
+        return books.stream().filter(book -> book.getTitle().equals(title)).findFirst().get();
     }
 
     public User findUserByName(String name) {
-
-        return users.stream().filter(user -> user.getName().equals(name)).findFirst().orElse(null);
+        return users.stream().filter(user -> user.getName().equals(name)).findFirst().get();
     }
 
     public void borrowBook(User user, Book book) throws UserOrBookDoesNotExistException{
         if (findBookByTitle(book.getTitle()) == null || findUserByName(user.getName()) == null) {
             throw new UserOrBookDoesNotExistException("User or book does not exist");
+        }else{
+            lendings.add(new Lending(book, user));
         }
-        else {
-            for (Lending lending : lendings) {
-                if (lending.getBook().equals(book) && lending.getUser().equals(user)) {
-                    throw new UserOrBookDoesNotExistException("User already has this book");
-                }
-            }
-        }
-        lendings.add(new Lending(book, user));
+
     }
    public void extendLending(FacultyMember facultyMember, Book book, LocalDate newDueDate) {
        lendings.stream().filter(lending -> lending.getBook().equals(book) && lending.getUser().equals(facultyMember)).findFirst().ifPresent(lending -> lending.setDueDate(newDueDate));
