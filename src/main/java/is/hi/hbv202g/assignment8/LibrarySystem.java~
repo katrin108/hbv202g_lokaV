@@ -45,16 +45,23 @@ public class LibrarySystem {
     }
 
     public void borrowBook(User user, Book book) throws UserOrBookDoesNotExistException {
-        if(users.stream().noneMatch(user1 -> user1.getName().equals(user.getName()))) throw new UserOrBookDoesNotExistException("User " + user.getName() + " not found");
-            lendings.add(new Lending(book, user));
-
+        if (findUserByName(user.getName())==null || findBookByTitle(book.getTitle())==null) {
+           throw new UserOrBookDoesNotExistException("User or book does not exist");
+        }
+        lendings.add(new Lending(book, user));
 
     }
-   public void extendLending(FacultyMember facultyMember, Book book, LocalDate newDueDate) {
+   public void extendLending(FacultyMember facultyMember, Book book, LocalDate newDueDate) throws UserOrBookDoesNotExistException {
+       if (findUserByName(facultyMember.getName())==null || findBookByTitle(book.getTitle())==null) {
+           throw new UserOrBookDoesNotExistException("User or book does not exist");
+       }
        lendings.stream().filter(lending -> lending.getBook().equals(book) && lending.getUser().equals(facultyMember)).findFirst().ifPresent(lending -> lending.setDueDate(newDueDate));
    }
 
-    public void returnBook(User user, Book book) {
+    public void returnBook(User user, Book book) throws UserOrBookDoesNotExistException {
+        if (findUserByName(user.getName())==null || findBookByTitle(book.getTitle())==null) {
+            throw new UserOrBookDoesNotExistException("User or book does not exist");
+        }
         lendings.removeIf(lending -> lending.getBook().equals(book) && lending.getUser().equals(user));
     }
 

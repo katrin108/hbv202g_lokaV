@@ -5,6 +5,9 @@ import java.time.LocalDate;
 public class Lending {
     private LocalDate dueDate;
 
+    private Book book;
+    private User user;
+
     public Lending(Book book, User user) {
         setBook(book);
         setUser(user);
@@ -20,20 +23,18 @@ public class Lending {
     }
 
     public Book getBook() {
-        //TODO
-        return null;
+        return book;
     }
 
     public void setBook(Book book) {
-        //TODO
+        this.book = book;
     }
 
     public User getUser() {
-        //TODO
-        return null;
+        return user;
     }
 
     public void setUser(User user) {
-        //TODO
+        this.user = user;
     }
 }

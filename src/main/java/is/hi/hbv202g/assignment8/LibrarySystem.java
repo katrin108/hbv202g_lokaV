@@ -13,9 +13,9 @@ public class LibrarySystem {
     private List<Lending> lendings;
 
     public LibrarySystem() {
-        books = new ArrayList<>();
-        users = new ArrayList<>();
-        lendings = new ArrayList<>();
+        this.books = new ArrayList<>();
+        this.users = new ArrayList<>();
+        this.lendings = new ArrayList<>();
     }
 
     public void addBookWithTitleAndNameOfSingleAuthor(String title, String authorName) throws EmptyAuthorListException {

@@ -9,9 +9,9 @@ public class Lending {
     private User user;
 
     public Lending(Book book, User user) {
-        setBook(book);
-        setUser(user);
-        setDueDate(LocalDate.now().plusDays(30));
+        this.book = book;
+        this.user = user;
+        this.dueDate = LocalDate.now().plusDays(30);
     }
 
     public LocalDate getDueDate(LocalDate dueDate) {
