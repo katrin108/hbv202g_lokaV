@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Main
 {
-    public static void main( String[] args ) throws EmptyAuthorListException, UserOrBookDoesNotExistException {
+    public static void main( String[] args ) {
 
         //create library
         LibrarySystem myLibrarySystem = new LibrarySystem();
