@@ -22,15 +22,10 @@ public class Book {
     }
 
     public void setAuthors(List<Author> authors) {
-        try {
-            if (authors == null || authors.isEmpty()) {
-                throw new EmptyAuthorListException("Author list is empty");
-            }else {
+
                 this.authors = authors;
-            }
-        } catch (EmptyAuthorListException e) {
-            e.printStackTrace();
-        }
+
+
 
     }
 
