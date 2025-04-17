@@ -116,6 +116,19 @@ The project follows the typical Maven directory layout:
 
 This will execute the `main` method in `Main.java` demonstrates how to use the `LibrarySystem` class.
 
+
+### Running the Application via JAR (Without Maven)
+
+If Maven is not available or you prefer to run the compiled JAR file directly, you can use the provided Windows batch scripts:
+
+- To **create the JAR file**, run:
+  ```cmd
+  createjar.cmd
+  ```
+- To **run the JAR file**, run:
+  ```cmd
+    runjar.cmd
+  ```
 ## Usage
 
 The `main` method in `Main.java` demonstrates the usage of the `LibarySystem` class. You can view the results in the terminal after running the application.
