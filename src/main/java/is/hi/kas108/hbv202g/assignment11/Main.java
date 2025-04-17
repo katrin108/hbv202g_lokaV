@@ -26,6 +26,8 @@ public class Main
         myLibrary.addFacultyMemberUser("Andri","Computer Science");
         System.out.println("Andri was added to the system");
 
+        myLibrary.addObserver(new LibraryLogger());
+
         try {
             Book book = myLibrary.findBookByTitle("Narnia");
             System.out.println("Found book "+book.getTitle());
@@ -40,12 +42,31 @@ public class Main
             System.out.println(e.getMessage());
         }
 
-        try{
-            myLibrary.borrowBook(myLibrary.findUserByName("Ari"), myLibrary.findBookByTitle("Narnia"));
-            System.out.println("Narnia was borrowed by Ari");
-        }catch (UserOrBookDoesNotExistException e){
+
+        try {
+
+
+            myLibrary.addStudentUser("Elsa", true);
+            User user = myLibrary.findUserByName("Elsa");
+                    // Single Book
+            Book book1 = new Book("Design Patterns", List.of(
+                    new Author("Erich Gamma"),
+                    new Author("Richard Helm"),
+                    new Author("Ralph Johnson"),
+                    new Author("John Vlissides")
+            ));
+            myLibrary.borrowItem(user, book1);
+
+            // Omnibus
+            Omnibus omnibus = new Omnibus("Harry Potter Collection");
+            omnibus.addItem(new Book("HP1", List.of(new Author("J.K. Rowling"))));
+            omnibus.addItem(new Book("HP2", List.of(new Author("J.K. Rowling"))));
+            myLibrary.borrowItem(user, omnibus);
+
+        } catch (UserOrBookDoesNotExistException e) {
             System.out.println(e.getMessage());
         }
+
 
         try{
             myLibrary.extendLending((FacultyMember) myLibrary.findUserByName("Andri"), myLibrary.findBookByTitle("Narnia"), LocalDate.now().plusDays(2));

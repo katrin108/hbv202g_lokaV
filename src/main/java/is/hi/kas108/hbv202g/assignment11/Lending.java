@@ -14,7 +14,7 @@ public class Lending {
         this.dueDate = LocalDate.now().plusDays(30);
     }
 
-    public LocalDate getDueDate(LocalDate dueDate) {
+    public LocalDate getDueDate() {
         return this.dueDate;
     }
 

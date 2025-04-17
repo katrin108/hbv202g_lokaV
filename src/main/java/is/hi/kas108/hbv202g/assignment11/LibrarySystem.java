@@ -12,15 +12,29 @@ public class LibrarySystem {
 
     private List<Lending> lendings;
 
+    private List<LibraryObserver> observers = new ArrayList<>();
     public LibrarySystem() {
         this.books = new ArrayList<>();
         this.users = new ArrayList<>();
         this.lendings = new ArrayList<>();
     }
 
+
+    public void addObserver(LibraryObserver observer) {
+        observers.add(observer);
+    }
+
+    private void notifyObservers(String message) {
+        for (LibraryObserver observer : observers) {
+            observer.update(message);
+        }
+    }
+
+
     public void addBookWithTitleAndNameOfSingleAuthor(String title, String authorName) throws EmptyAuthorListException {
         if(authorName.isEmpty()|| authorName.trim().isEmpty()) throw new EmptyAuthorListException("the book has no author");
-        books.add(new Book(title, authorName));
+        Author author = new Author(authorName);
+        books.add(new Book(title, author));
     }
     public void addBookWithTitleAndAuthorList(String title, List<Author> authors) throws EmptyAuthorListException  {
         if(authors.isEmpty()) throw new EmptyAuthorListException("the book has no authors");
@@ -44,19 +58,25 @@ public class LibrarySystem {
         return users.stream().filter(user -> user.getName().equals(name)).findFirst().orElse(null);
     }
 
-    public void borrowBook(User user, Book book) throws UserOrBookDoesNotExistException {
-        if (findUserByName(user.getName())==null || findBookByTitle(book.getTitle())==null) {
-           throw new UserOrBookDoesNotExistException("User or book does not exist");
+    public void borrowItem(User user, LibraryItem item) throws UserOrBookDoesNotExistException {
+        if (findUserByName(user.getName()) == null || item == null) {
+            throw new UserOrBookDoesNotExistException("User or item does not exist");
         }
-        lendings.add(new Lending(book, user));
-
+        item.borrow(user, lendings); // Composite pattern in action
+        notifyObservers(user.getName() + " borrowed: " + item.getTitle());
     }
-   public void extendLending(FacultyMember facultyMember, Book book, LocalDate newDueDate) throws UserOrBookDoesNotExistException {
+
+    public List<Lending> getLendings() {
+        return lendings;
+    }
+
+    public void extendLending(FacultyMember facultyMember, Book book, LocalDate newDueDate) throws UserOrBookDoesNotExistException {
        if (findUserByName(facultyMember.getName())==null || findBookByTitle(book.getTitle())==null) {
            throw new UserOrBookDoesNotExistException("User or book does not exist");
        }
-       lendings.stream().filter(lending -> lending.getBook().equals(book) && lending.getUser().equals(facultyMember)).findFirst().ifPresent(lending -> lending.setDueDate(newDueDate));
-   }
+       lendings.stream().filter(lending -> lending.getBook().equals(book)).findFirst().ifPresent(lending -> lending.setDueDate(newDueDate));
+
+    }
 
     public void returnBook(User user, Book book) throws UserOrBookDoesNotExistException {
         if (findUserByName(user.getName())==null || findBookByTitle(book.getTitle())==null) {

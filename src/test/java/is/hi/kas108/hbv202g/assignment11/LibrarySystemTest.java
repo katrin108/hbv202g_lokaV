@@ -3,7 +3,9 @@ package is.hi.kas108.hbv202g.assignment11;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -17,6 +19,8 @@ public class LibrarySystemTest {
 
 
     }
+
+
     @Test
 
     public void testAddBookWithTitleAndNameOfSingleAuthor() throws EmptyAuthorListException, UserOrBookDoesNotExistException {
@@ -66,7 +70,7 @@ public class LibrarySystemTest {
 
 
     }
-
+@Test
     public void testFindBookByTitle() throws EmptyAuthorListException, UserOrBookDoesNotExistException {
 
         librarySystem.addBookWithTitleAndNameOfSingleAuthor("1984","George Orwell");
@@ -81,6 +85,7 @@ public class LibrarySystemTest {
 
 
     }
+    @Test
 
     public void testFindUserByName() throws UserOrBookDoesNotExistException {
         librarySystem.addStudentUser("Olafur", true);
@@ -91,23 +96,56 @@ public class LibrarySystemTest {
 
         assertEquals(user, librarySystem.findUserByName(user.getName()));
     }
+@Test
+    public void testborrowItem() throws UserOrBookDoesNotExistException , EmptyAuthorListException {
 
-    public void testBorrowBook() throws EmptyAuthorListException, UserOrBookDoesNotExistException {
-        librarySystem.addBookWithTitleAndNameOfSingleAuthor("Hobbit", "J.R.R. Tolkien");
-        librarySystem.addStudentUser("Peter", true);
-        Book book = librarySystem.findBookByTitle("Hobbit");
-        User user = librarySystem.findUserByName("Peter");
-        librarySystem.borrowBook(user, book);
+        LibrarySystem librarySystem = new LibrarySystem();
+        librarySystem.addStudentUser("ABC", true);
+        librarySystem.addBookWithTitleAndNameOfSingleAuthor("1984","George Orwell");
 
-        assertNotNull(book);
-        assertNotNull(user);
+
+        librarySystem.borrowItem(librarySystem.findUserByName("ABC"), librarySystem.findBookByTitle("1984"));
+
+        assertEquals(1, librarySystem.getLendings().size());
 
 
     }
+    @Test
 
-    public void testExtendLending() {
+    public void testExtendLending() throws UserOrBookDoesNotExistException, EmptyAuthorListException {
+        LibrarySystem librarySystem = new LibrarySystem();
+        librarySystem.addStudentUser("ABC", true);
+        librarySystem.addFacultyMemberUser("DEF", "Computer Science");
+        librarySystem.addBookWithTitleAndNameOfSingleAuthor("1984","George Orwell");
+
+        librarySystem.borrowItem(librarySystem.findUserByName("ABC"), librarySystem.findBookByTitle("1984"));
+
+        User facultyMember = librarySystem.findUserByName("DEF");
+        Book book = librarySystem.findBookByTitle("1984");
+
+        LocalDate date = LocalDate.of(2025, 11, 1);
+
+        librarySystem.extendLending((FacultyMember) facultyMember , book,date);
+        Lending lending = librarySystem.getLendings().getFirst();
+
+        assertEquals(date, lending.getDueDate());
+
+
     }
+    @Test
 
-    public void testReturnBook() {
+    public void testReturnBook() throws UserOrBookDoesNotExistException, EmptyAuthorListException {
+        LibrarySystem librarySystem = new LibrarySystem();
+        librarySystem.addStudentUser("ABC", true);
+        librarySystem.addFacultyMemberUser("DEF", "Computer Science");
+        librarySystem.addBookWithTitleAndNameOfSingleAuthor("1984","George Orwell");
+
+        librarySystem.borrowItem(librarySystem.findUserByName("ABC"), librarySystem.findBookByTitle("1984"));
+        User user = librarySystem.findUserByName("ABC");
+        Book book = librarySystem.findBookByTitle("1984");
+        librarySystem.returnBook(user, book);
+
+        assertEquals(0, librarySystem.getLendings().size());
+
     }
 }

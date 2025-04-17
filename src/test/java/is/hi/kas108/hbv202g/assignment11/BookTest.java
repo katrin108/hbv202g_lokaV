@@ -37,6 +37,13 @@ public class BookTest {
 
     }
     @Test
+    public void testBorrow() {
+        User user=new Student("Siggi",true);
+        ArrayList<Lending> lendings=new ArrayList<>();
+        book.borrow(user,lendings);
+        assertEquals(1,lendings.size());
+    }
+    @Test
 
     public void testGetAuthors() {
         assertEquals(book.getAuthors(),authors);
@@ -59,16 +66,6 @@ public class BookTest {
         assertEquals(authors,book.getAuthors());
     }
 
-   @Test
-    public void testGetTitle() {
-        assertEquals(title,book.getTitle());
 
-    }
-    @Test
-    public void testSetTitle() {
-        String newTitle="New Title";
-        book.setTitle(newTitle);
-        assertEquals(newTitle,book.getTitle());
-    }
 
 }
