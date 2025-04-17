@@ -2,6 +2,29 @@
 This is an updated version of the code from **HBV202G Assignment 8** to complete the tasks in **HBV202G Assignment 11/ Software Construction Project**.  
 It provides a simple implementation of a school library system that allows for book borrowing, tracking, and managing user data.
 
+This project was built as part of the HBV202G course and includes:
+
+-  Proper use of **Git** for version control and collaboration.
+-  **Maven** usage including:
+  - `compile`
+  - `test`
+  - `exec:java`
+  - `package`
+  - `site`
+- **JUnit tests** for verifying business logic (non-UI related).
+-  **UML Class Diagram** for system architecture.
+-  Use of common **Design Patterns**:
+  - Composite Pattern
+  - Observer Pattern
+-  Applied **Refactoring** principles for cleaner, maintainable code.
+-  Packaged application as a **.jar** file.
+-  Full **documentation** support:
+  - `LICENSE`
+  - `README.md`
+  - Javadoc for all public and package-visible methods
+  - Maven site generation and integration with design documentation
+
+
 ## Project overview
 
 The project implements a basic library system with features like:
@@ -24,12 +47,16 @@ The project follows the typical Maven directory layout:
 
 ### `src/main/java/is/hi/kas108/hbv202g/assignment11`:
 - **`Author.java`**: Contains the `Author` class and its implementations.
-- **`Book.java`**: Contains the `Book` class and its implementations.
+- **`Book.java`**: Contains the `Book` class, which extends the `LibraryItem` class and its implementations.
 - **`EmptyAuthorListException.java`**: Custom exception thrown when the author list is empty and extends `Exception`.
 - **`FacultyMember.java`**: Contains the `FacultyMember` class, which extends the `User` class and its implementations.
 - **`Lending.java`**: Contains the `Lending` class that manages the borrowing of books.
+- **`LibraryItem.java`**: Abstract class representing a item (either `Book` or `Omnibus`).
+- **`LibraryLogger.java`**: Contains the `LibraryLogger` class, which extends the `LibraryObserver` and its implementations.
+- **`LibraryObserver.java`**: Interface for implementing the Observer design pattern. It defines how observers receive updates.
 - **`LibrarySystem.java`**: Core class for managing the library, handling operations like borrowing, returning, and searching for books.
-- **`Main.java`**: Entry point for the program where the system is run and thorws `EmptyAuthorListException`
+- **`Main.java`**: Entry point for the program where the system is run and throws `EmptyAuthorListException`
+- **`Omnibus.java`**: Contains the `Omnibus` class, which extends the `LibraryItem` class and its implementations.
 - **`Student.java`**: Contains the `Student` class, which extends the `User` class and its implementations.
 - **`User.java`**: Abstract class representing a user (either `Student` or `FacultyMember`).
 - **`UserOrBookDoesNotExistException.java`**: Custom exception thrown when a user or book is not found in the system and extends `Exception`.
@@ -40,8 +67,10 @@ The project follows the typical Maven directory layout:
 - **`BookTest.java`**: Test cases for the `Book` class.
 - **`FacultyMemberTest.java`**: Test cases for the `FacultyMember` class.
 - **`LendingTest.java`**: Test cases for the `Lending` class.
+- **`LibraryItemTest.java`**: Test cases for the `LibraryItem` class.
 - **`LibrarySystemTest.java`**: Test cases for the `LibrarySystem` class.
 - **`MainTest.java`**: Test cases for the `Main` class.
+- **`OmnibusTest.java`**: Test cases for the `Omnibus` class.
 - **`UserTest.java`**: Test cases for the `User` class.
 
 
@@ -85,22 +114,37 @@ The project follows the typical Maven directory layout:
     mvn site
     ```
 
-This will execute the `main` method in `main.java`, which demonstrates how the `LibrarySystem` works.
+This will execute the `main` method in `Main.java` demonstrates how to use the `LibrarySystem` class.
 
 ## Usage
 
-The `main` method in `IntStackMain.java` demonstrates the usage of the `IntStack` class. You can view the results in the terminal after running the application.
+The `main` method in `Main.java` demonstrates the usage of the `LibarySystem` class. You can view the results in the terminal after running the application.
 
-## Documentation
-## pattern added
- Composite Pattern
+## Testing
 
-### **Generating Documentation**  
+JUnit is used to test core components of the business logic. Coverage includes:
+
+- `LibrarySystem`: Borrowing logic and exception handling
+- `Book`, `Omnibus`, and `Lending`: Composite behavior and item management
+- Observer pattern: Validates that `LibraryLogger` receives notifications
+
+    ```bash
+    mvn test
+    ```
+
+
+## Design Patterns Used
+
+### Composite Pattern
+Used for representing books and omnibus collections. Both `Book` and `Omnibus` extend `LibraryItem`, allowing uniform treatment for borrowing and returning.
+
+### Observer Pattern
+`LibraryLogger` implements `LibraryObserver` and gets notified whenever a book or omnibus is borrowed. This demonstrates decoupling between business logic and notification systems.
 
 
 
 ## UML Class Diagram  
-A UML class diagram representing the project structure can be found [here](src/site/resources/classes.png).  
+A UML class diagram representing the project structure can be found [here](UML/loka.drawio.png).  
 
 
 ## Credits

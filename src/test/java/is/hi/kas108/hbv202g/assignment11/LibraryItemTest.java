@@ -4,7 +4,9 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LibraryItemTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class LibraryItemTest  {
    @Test
 
     public void testGetTitle() throws EmptyAuthorListException {

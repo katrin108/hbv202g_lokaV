@@ -4,11 +4,17 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Hello world!
- *
+ * Main class for running the Library System
+ * Demonstrates adding books, users, borrowing and returning items, and observer pattern functionality
  */
 public class Main
 {
+
+    /**
+     * Entry point for the application. Simulates use of the library system
+     * @param args Command-line arguments
+     * @throws EmptyAuthorListException if a book is created without authors
+     */
     public static void main( String[] args ) throws EmptyAuthorListException {
 
 
