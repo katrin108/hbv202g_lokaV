@@ -1,4 +1,4 @@
 @echo off
-mvn clean
-mvn package
-mvn dependency:copy-dependencies -DoutputDirectory=target/dependency
+echo Creating fat jar...
+mvn clean package
+echo Done. You can now run it with runjar.cmd
