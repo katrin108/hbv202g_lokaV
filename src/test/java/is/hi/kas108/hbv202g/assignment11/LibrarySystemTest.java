@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -24,7 +23,7 @@ public class LibrarySystemTest {
     @Test
 
     public void testAddBookWithTitleAndNameOfSingleAuthor() throws EmptyAuthorListException, UserOrBookDoesNotExistException {
-        librarySystem.addBookWithTitleAndNameOfSingleAuthor("Koko's Adventure", "Koko");
+        librarySystem.addLibraryItemWithTitleAndNameOfSingleAuthor("Koko's Adventure", "Koko");
         Book book = librarySystem.findBookByTitle("Koko's Adventure");
         assertEquals("Koko's Adventure", book.getTitle());
 
@@ -39,7 +38,7 @@ public class LibrarySystemTest {
         ArrayList<Author> authors = new ArrayList<>();
         authors.add(author1);
         authors.add(author2);
-        librarySystem.addBookWithTitleAndAuthorList("Good Omens", authors);
+        librarySystem.addLibraryItemWithTitleAndAuthorList("Good Omens", authors);
         Book book = librarySystem.findBookByTitle("Good Omens");
         assertEquals("Good Omens", book.getTitle());
 
@@ -73,7 +72,7 @@ public class LibrarySystemTest {
 @Test
     public void testFindBookByTitle() throws EmptyAuthorListException, UserOrBookDoesNotExistException {
 
-        librarySystem.addBookWithTitleAndNameOfSingleAuthor("1984","George Orwell");
+        librarySystem.addLibraryItemWithTitleAndNameOfSingleAuthor("1984","George Orwell");
 
         Book book = librarySystem.findBookByTitle("1984");
 
@@ -101,7 +100,7 @@ public class LibrarySystemTest {
 
         LibrarySystem librarySystem = new LibrarySystem();
         librarySystem.addStudentUser("ABC", true);
-        librarySystem.addBookWithTitleAndNameOfSingleAuthor("1984","George Orwell");
+        librarySystem.addLibraryItemWithTitleAndNameOfSingleAuthor("1984","George Orwell");
 
 
         librarySystem.borrowItem(librarySystem.findUserByName("ABC"), librarySystem.findBookByTitle("1984"));
@@ -116,7 +115,7 @@ public class LibrarySystemTest {
         LibrarySystem librarySystem = new LibrarySystem();
         librarySystem.addStudentUser("ABC", true);
         librarySystem.addFacultyMemberUser("DEF", "Computer Science");
-        librarySystem.addBookWithTitleAndNameOfSingleAuthor("1984","George Orwell");
+        librarySystem.addLibraryItemWithTitleAndNameOfSingleAuthor("1984","George Orwell");
 
         librarySystem.borrowItem(librarySystem.findUserByName("ABC"), librarySystem.findBookByTitle("1984"));
 
@@ -138,7 +137,7 @@ public class LibrarySystemTest {
         LibrarySystem librarySystem = new LibrarySystem();
         librarySystem.addStudentUser("ABC", true);
         librarySystem.addFacultyMemberUser("DEF", "Computer Science");
-        librarySystem.addBookWithTitleAndNameOfSingleAuthor("1984","George Orwell");
+        librarySystem.addLibraryItemWithTitleAndNameOfSingleAuthor("1984","George Orwell");
 
         librarySystem.borrowItem(librarySystem.findUserByName("ABC"), librarySystem.findBookByTitle("1984"));
         User user = librarySystem.findUserByName("ABC");

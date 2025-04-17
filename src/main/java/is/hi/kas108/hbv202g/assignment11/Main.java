@@ -15,9 +15,9 @@ public class Main
 
         LibrarySystem myLibrary = new LibrarySystem();
 
-        myLibrary.addBookWithTitleAndNameOfSingleAuthor("Narnia", "C.S. Lewis");
+        myLibrary.addLibraryItemWithTitleAndNameOfSingleAuthor("Narnia", "C.S. Lewis");
         System.out.println("Narnia was added to the system");
-        myLibrary.addBookWithTitleAndAuthorList("Good Omens", List.of(new Author("Terry Pratchett"), new Author("Neil Gaiman")));
+        myLibrary.addLibraryItemWithTitleAndAuthorList("Good Omens", List.of(new Author("Terry Pratchett"), new Author("Neil Gaiman")));
         System.out.println("Good Omens was added to the system");
 
         myLibrary.addStudentUser("Ari", false);

@@ -6,17 +6,18 @@ import java.util.List;
 
 public class LibrarySystem {
 
-    private List<Book> books;
+    private List<LibraryItem> libraryItems;
 
     private List<User> users;
 
     private List<Lending> lendings;
 
-    private List<LibraryObserver> observers = new ArrayList<>();
+    private List<LibraryObserver> observers;
     public LibrarySystem() {
-        this.books = new ArrayList<>();
+        this.libraryItems = new ArrayList<>();
         this.users = new ArrayList<>();
         this.lendings = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
 
 
@@ -31,14 +32,14 @@ public class LibrarySystem {
     }
 
 
-    public void addBookWithTitleAndNameOfSingleAuthor(String title, String authorName) throws EmptyAuthorListException {
+    public void addLibraryItemWithTitleAndNameOfSingleAuthor(String title, String authorName) throws EmptyAuthorListException {
         if(authorName.isEmpty()|| authorName.trim().isEmpty()) throw new EmptyAuthorListException("the book has no author");
         Author author = new Author(authorName);
-        books.add(new Book(title, author));
+        libraryItems.add(new Book(title, author));
     }
-    public void addBookWithTitleAndAuthorList(String title, List<Author> authors) throws EmptyAuthorListException  {
+    public void addLibraryItemWithTitleAndAuthorList(String title, List<Author> authors) throws EmptyAuthorListException  {
         if(authors.isEmpty()) throw new EmptyAuthorListException("the book has no authors");
-        books.add(new Book(title, authors));
+        libraryItems.add(new Book(title, authors));
     }
 
     public void addStudentUser(String name, boolean feePaid) {
@@ -49,7 +50,7 @@ public class LibrarySystem {
     }
 
     public Book findBookByTitle(String title) throws UserOrBookDoesNotExistException {
-        return books.stream().filter(book -> book.getTitle().equals(title)).findFirst().orElseThrow(()-> new UserOrBookDoesNotExistException("Book " + title + " not found"));
+        return (Book) libraryItems.stream().filter(libraryItem -> libraryItem.getTitle().equals(title)).findFirst().orElse(null);
     }
 
 

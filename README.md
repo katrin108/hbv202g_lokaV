@@ -92,7 +92,8 @@ This will execute the `main` method in `main.java`, which demonstrates how the `
 The `main` method in `IntStackMain.java` demonstrates the usage of the `IntStack` class. You can view the results in the terminal after running the application.
 
 ## Documentation
-
+## pattern added
+ Composite Pattern
 
 ### **Generating Documentation**  
 
