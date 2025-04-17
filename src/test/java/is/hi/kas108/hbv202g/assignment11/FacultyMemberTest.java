@@ -1,10 +1,10 @@
-package is.hi.hbv202g.assignment8;
+package is.hi.kas108.hbv202g.assignment11;
 
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-public class FacultyMemberTest extends TestCase {
+public class FacultyMemberTest {
     private FacultyMember facultyMember;
 
     private String department;

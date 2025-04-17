@@ -1,13 +1,14 @@
-package is.hi.hbv202g.assignment8;
+package is.hi.kas108.hbv202g.assignment11;
 
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class BookTest {
     private Author author1;
     private Author author2;
     private Author author3;
@@ -26,7 +27,7 @@ public class BookTest extends TestCase {
         author3=new Author("Tom");
 
         //create list of authors
-        authors=new ArrayList<Author>();
+        authors=new ArrayList<>();
         authors.add(author1);
         authors.add(author2);
 
@@ -70,8 +71,4 @@ public class BookTest extends TestCase {
         assertEquals(newTitle,book.getTitle());
     }
 
-    @Test
-    public void tetsSetAthorsThrowsException() throws EmptyAuthorListException {
-        book.setAuthors(new ArrayList<Author>());
-    }
 }

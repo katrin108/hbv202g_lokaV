@@ -1,13 +1,13 @@
-package is.hi.hbv202g.assignment8;
+package is.hi.kas108.hbv202g.assignment11;
 
-import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class LibrarySystemTest extends TestCase {
+import static org.junit.Assert.*;
+
+public class LibrarySystemTest {
 
     private LibrarySystem librarySystem;
 
@@ -22,7 +22,7 @@ public class LibrarySystemTest extends TestCase {
     public void testAddBookWithTitleAndNameOfSingleAuthor() throws EmptyAuthorListException, UserOrBookDoesNotExistException {
         librarySystem.addBookWithTitleAndNameOfSingleAuthor("Koko's Adventure", "Koko");
         Book book = librarySystem.findBookByTitle("Koko's Adventure");
-        assertEquals("Koko´s Adventure", book.getTitle());
+        assertEquals("Koko's Adventure", book.getTitle());
 
         assertEquals("Koko", book.getAuthors().get(0).getName());
 

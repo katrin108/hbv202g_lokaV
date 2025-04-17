@@ -1,11 +1,12 @@
-package is.hi.hbv202g.assignment8;
+package is.hi.kas108.hbv202g.assignment11;
 
-public class Author{
+public abstract class User {
     private String name;
 
-    public Author(String name) {
+    public User(String name) {
         this.name = name;
     }
+
     public String getName() {
         return name;
     }

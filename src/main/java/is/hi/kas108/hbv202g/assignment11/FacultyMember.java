@@ -1,4 +1,4 @@
-package is.hi.hbv202g.assignment8;
+package is.hi.kas108.hbv202g.assignment11;
 
 public class FacultyMember extends User{
     private String department;
